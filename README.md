@@ -6,7 +6,7 @@
 2) build a virtual enviroment
 3) install requirements
 4) download Pfam-A.hmm.gz from https://www.ebi.ac.uk/interpro/download/pfam/ and unzip it into lib directory
-5) download trained model and put it in models directory
+5) download trained model from https://zenodo.org/records/15351310 and put it in model directory
 
 ### Run instructions
 
