@@ -1,4 +1,4 @@
-# ESMRank: A learn-to-rank approach for protei variant effect prediction
+# ESMRank: A learn-to-rank approach for protein variant effect prediction
 
 ### Installation instruction
 
