@@ -185,6 +185,7 @@ masked_mu = list(X.masked_mu)
 model_name = 'esm2_t33_650M_UR50D'
 tokenizer = AutoTokenizer.from_pretrained(f'facebook/{model_name}', device_map='auto', torch_dtype=torch.bfloat16)
 model = EsmForMaskedLM.from_pretrained(f'facebook/{model_name}', device_map='auto', torch_dtype=torch.bfloat16)
+model.set_attn_implementation('eager')
 
 # run feature extraction
 model.eval()
