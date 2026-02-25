@@ -9,7 +9,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 ## Installation
 
 ### Requirements
-- Python **3.11** (recommended)
+- Python **3.10** (recommended)
 - Linux / macOS environment
 - `bash`
 
