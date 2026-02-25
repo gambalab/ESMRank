@@ -1,31 +1,157 @@
-# ESMRank: A learn-to-rank approach for protein variant effect prediction
+# ESMRank  
+**A learn-to-rank approach for protein variant effect prediction**
 
-### Installation instruction
+ESMRank is a pipeline for ranking protein variants according to their predicted functional impact.  
+The method frames variant effect prediction as a **learning-to-rank problem**, leveraging protein language models and sequence-derived features to prioritize mutations based on fitness, activity, or stability.
 
-1) clone the repository
-2) build a virtual enviroment
-3) install requirements
-4) download Pfam-A.hmm.gz from https://www.ebi.ac.uk/interpro/download/pfam/ and unzip it into lib directory
-5) download trained model from https://zenodo.org/records/15351310 and put it in model directory
+---
 
-### Run instructions
+## Installation
+
+### Requirements
+- Python **3.11** (recommended)
+- Linux / macOS environment
+- `bash`
+
+### Setup instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/j3rk0/ESMRank.git
+   ```
+
+2. **Move into the repository directory**
+   ```bash
+   cd ESMRank
+   ```
+
+3. **Create a virtual environment**
+   ```bash
+   python -m venv ESMRank_venv
+   ```
+
+4. **Activate the virtual environment**
+   ```bash
+   source ESMRank_venv/bin/activate
+   ```
+
+5. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+6. **Download pretrained models**
+   
+   Download `ESMRank.tar.gz` from:
+
+   ```
+   [INSERT DOWNLOAD LINK HERE]
+   ```
+
+   Then extract it in the repository root:
+   ```bash
+   tar -xvf ESMRank.tar.gz
+   ```
+
+---
+
+## Usage
+
+The main pipeline can be executed via:
 
 ```bash
-run_esmrank_pipeline.sh [-h] [--input INPUT] [-csv] [-sub] [-indel]
+run_esmrank_pipeline.sh [-h] --input INPUT [-csv] [-sub] [-indel]
 ```
 
-#### Description:
+---
 
-esmrank could be ran in csv and in fasta mode. csv mode input file should be a csv fire containing three mandatory columns:
-- hgvsp - containing an identifier for each variation
-- seq_wt - wild type protein sequence
-- seq_mu - mutant protein sequence
+## Input modes
 
-if ran in fasta mode, you must specify sub and/or indel. In this way the script will generate all the possible mutation for the given sequence
+ESMRank supports **two input modes**: CSV mode and FASTA mode.
 
-### Execution Parameters:
-1) -h will show the help
-2) --input ./path/to/input: input file path
-3) -csv: run in csv mode ( default is fasta mode )
-4) -sub: generate all possible missense from fasta file
-5) -indel: generate all possible indel from fasta file
+---
+
+### CSV mode
+
+In CSV mode, the input file must be a CSV containing **three mandatory columns**:
+
+| Column name | Description |
+|------------|-------------|
+| `hgvsp` | Variant identifier |
+| `seq_wt` | Wild-type protein sequence |
+| `seq_mu` | Mutant protein sequence |
+
+Example:
+```csv
+hgvsp,seq_wt,seq_mu
+p.A123V,MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQ...,MSEQNNTEMTFQIQRIYTKDISFEVPNAPHVFQ...
+```
+
+To run in CSV mode:
+```bash
+run_esmrank_pipeline.sh --input variants.csv -csv
+```
+
+---
+
+### FASTA mode
+
+In FASTA mode, the input must be a **single wild-type protein sequence** in FASTA format.
+
+The pipeline will automatically generate variants based on the selected mutation types:
+
+- `-sub` : generate all possible **missense substitutions**
+- `-indel` : generate all possible **insertions and deletions**
+
+Example FASTA:
+```fasta
+>protein_X
+MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQ...
+```
+
+Example execution:
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -sub
+```
+
+or
+
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -sub -indel
+```
+
+---
+
+## Command-line arguments
+
+| Argument | Description |
+|--------|-------------|
+| `-h` | Show help message |
+| `--input` | Path to input file (CSV or FASTA) |
+| `-csv` | Enable CSV input mode (default: FASTA mode) |
+| `-sub` | Generate all possible missense substitutions |
+| `-indel` | Generate all possible insertions and deletions |
+
+---
+
+## Notes
+
+- CSV and FASTA modes are **mutually exclusive**.
+- In FASTA mode, at least one of `-sub` or `-indel` must be specified.
+- Runtime and memory usage scale with protein length and number of generated variants.
+
+---
+
+## Citation
+
+If you use ESMRank in your research, please cite:
+
+```bibtex
+@article{esmrank,
+  title={ESMRank reveals a transferable axis of protein mutational constraint from overlapping variant effect assays},
+  author={Riccardo Arnese, Gennaro Gambardella},
+  journal={TBD},
+  year={TBD}
+}
+```
+
