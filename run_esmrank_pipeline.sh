@@ -42,9 +42,12 @@ fi
 input_file=$(echo "$@" | sed -n 's/.*\(--input\|-i\) \([^ ]*\).*/\2/p')
 
 
+export ESM_MODEL_NAME="esm2_t33_650M_UR50D"
+export ESM_WORKER_BATCH_SIZE="128"
 export PYTHONPATH="${PYTHONPATH}:./lib"
 export SAMPLE_FILE=$(basename -- "$input_file")
 export SAMPLE_NAME="${SAMPLE_FILE%.*}"
+export ESM_CHECKPOINT_DIR="output/${SAMPLE_NAME}/checkpoints"
 
 mkdir -p "output/${SAMPLE_NAME}"
 
