@@ -9,13 +9,18 @@ parser.add_argument('--input','-i', type=str,help='input fasta file path')
 parser.add_argument('-sub', action='store_true')
 parser.add_argument('-indel', action='store_true')
 parser.add_argument('-csv', action='store_true')
+parser.add_argument('-alanines', action='store_true')
 args = parser.parse_args()
 
 
+assert ( args.csv ^ ( args.csv or args.indel ) ) ^ args.alanines 
 if args.csv:
     pd.read_csv(args.input).to_csv(f'output/{sample_name}/temp.csv',index=None)
     exit()
-
+elif args.alanines:
+    assert False, 'Not Implemented'
+    # TODO: generate only alanines
+    exit()
 
 with open( args.input  ,'r') as f:
     seq = ''.join(f.read().split('\n')[1:])
