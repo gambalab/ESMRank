@@ -17,10 +17,6 @@ assert ( args.csv ^ ( args.csv or args.indel ) ) ^ args.alanines
 if args.csv:
     pd.read_csv(args.input).to_csv(f'output/{sample_name}/temp.csv',index=None)
     exit()
-elif args.alanines:
-    assert False, 'Not Implemented'
-    # TODO: generate only alanines
-    exit()
 
 with open( args.input  ,'r') as f:
     seq = ''.join(f.read().split('\n')[1:])
@@ -28,7 +24,20 @@ with open( args.input  ,'r') as f:
 aa = 'ACDEFGHIKLMNPQRSTVWY*'
 res = {}
 
+if args.alanines:
+    res.update({
+        f'{seq[i]}{i+1}A':{
+
+            'seq_wt':seq,
+            'seq_mu':seq[:i] + 'A' + seq[i+1:]
+
+        }
+        for i in range(len(seq))
+    })
+
+
 if args.sub:
+    assert not ( args.alanines or args.csv )
     res.update( # generate substitutions
     {
         f'{seq[i]}{i+1}{j}':{
@@ -43,6 +52,7 @@ if args.sub:
     })
 
 if args.indel:
+    assert not ( args.alanines or args.csv )
     res.update(  # generate deletions
     {
         f'{seq[i]}{i+1}DEL':{
