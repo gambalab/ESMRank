@@ -13,7 +13,7 @@ parser.add_argument('-alanines', action='store_true')
 args = parser.parse_args()
 
 
-assert ( args.csv ^ ( args.csv or args.indel ) ) ^ args.alanines 
+assert ( args.csv ^ ( args.csv or args.indel or args.alanines  ) )
 if args.csv:
     pd.read_csv(args.input).to_csv(f'output/{sample_name}/temp.csv',index=None)
     exit()
@@ -25,6 +25,7 @@ aa = 'ACDEFGHIKLMNPQRSTVWY*'
 res = {}
 
 if args.alanines:
+    assert not (args.csv or args.indel or args.sub)
     res.update({
         f'{seq[i]}{i+1}A':{
 
