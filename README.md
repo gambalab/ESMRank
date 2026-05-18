@@ -49,7 +49,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
    Download `ESMRank.tar.gz` from:
 
    ```
-   [INSERT DOWNLOAD LINK HERE]
+   https://zenodo.org/records/18773439
    ```
 
    Then extract it in the repository root:
