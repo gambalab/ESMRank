@@ -121,21 +121,23 @@ MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQ...
 ```
 
 Example execution:
-```bash
-run_esmrank_pipeline.sh --input protein.fasta -sub
-```
+
+generating all missenses variants:
 
 ```bash
 run_esmrank_pipeline.sh --input protein.fasta -sub
 ```
-
-or
+generating all single single indel
 
 ```bash
 run_esmrank_pipeline.sh --input protein.fasta -indel
 ```
+generating all missenses and single indel
 
-or
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -sub -indel
+```
+generate alanine scanning ( alanines substitution only ) 
 
 ```bash
 run_esmrank_pipeline.sh --input protein.fasta -alanines
