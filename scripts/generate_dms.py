@@ -27,10 +27,10 @@ res = {}
 if args.alanines:
     assert not (args.csv or args.indel or args.sub)
     res.update({
-        f'{seq[i]}{i+1}A':{
+        f'{seq[i]}{i+1}A' if seq[i] != 'A' else f'A{i+1}G':{
 
             'seq_wt':seq,
-            'seq_mu':seq[:i] + 'A' + seq[i+1:]
+            'seq_mu': seq[:i] + ( 'A' if seq[i]!='A' else 'G') + seq[i+1:]
 
         }
         for i in range(len(seq))
