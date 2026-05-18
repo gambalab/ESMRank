@@ -6,7 +6,6 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 
 
 # TODO:
-* add AlanineScanning mode
 * add AverageProfile mode
 * add profile TSV export
 ---
@@ -113,6 +112,7 @@ The pipeline will automatically generate variants based on the selected mutation
 
 - `-sub` : generate all possible **missense substitutions**
 - `-indel` : generate all possible **insertions and deletions**
+- `-alanines`: mutually exclusive to sub and indel, generate only alanines substitutions for each aminoacid
 
 Example FASTA:
 ```fasta
@@ -125,10 +125,20 @@ Example execution:
 run_esmrank_pipeline.sh --input protein.fasta -sub
 ```
 
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -sub
+```
+
 or
 
 ```bash
-run_esmrank_pipeline.sh --input protein.fasta -sub -indel
+run_esmrank_pipeline.sh --input protein.fasta -indel
+```
+
+or
+
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -alanines
 ```
 
 ---
