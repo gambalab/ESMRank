@@ -70,7 +70,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 The main pipeline can be executed via:
 
 ```bash
-run_esmrank_pipeline.sh [-h] --input INPUT [-csv] [-sub] [-indel]
+run_esmrank_pipeline.sh [-h] --input INPUT [-csv] [-sub] [-indel] [-alanines]
 ```
 
 ---
