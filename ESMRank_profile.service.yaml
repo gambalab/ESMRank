@@ -1,0 +1,80 @@
+---
+slivka-version: 0.8.3
+name: ESMRank
+description: ESMRank is a learn-to-rank based approach for protein variant effect prediction.
+author: "Riccardo Arnese, Gennaro Gambardella"
+version: '1'
+license: Apache 2.0
+
+
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+  - 'Operation :: Analysis :: Protein property prediction'
+  - 'Operation :: Analysis :: Statistical analysis'
+  - 'Operation :: Analysis :: Variant effect prediction'
+  - 'Data :: Protein sequence'
+  - 'Format :: FASTA'
+  - 'Format :: CSV'
+  - 'Format :: PNG'
+
+
+parameters:
+  input:
+    name: Input file
+    type: file
+    required: true
+    description: Aminoacidic sequence of the target protein
+    media-type: application/fasta
+
+  alanines:
+    name: AlanineScanning mode
+    type: flag
+    description: Compute protein profile from Alanine substitutions
+    required: no
+
+  sub:
+    name: Substitution mode
+    type: flag
+    description: Compute profile by position average substitution score
+    required: no
+
+
+command:
+- bash
+- ${SLIVKA_HOME}/ESMRank/run_esmrank_pipeline.sh
+
+args:
+  input:
+    arg: -i=$(value)
+  alanines:
+    arg: -alanines
+  sub:
+    arg: -sub
+
+outputs:
+  sequence-profile:
+    path: output/*/profile.tsv
+    media-type: text/tsv
+    description: tolerance scores for each position
+  scores:
+    path: output/*/predictions.csv
+    media-type: text/csv
+    description: score for each mutation
+  profile-plot:
+    path: output/*/profile.png
+    media-type: image/png
+    description: position tolerance plot
+
+execution:
+  runners:
+    local-queue:
+      type: SlivkaQueueRunner
+    grid-engine:
+      type: GridEngineRunner
+      parameters:
+        qargs: -P webservice -q debug -l ram=2048M
+    default:
+      type: SlivkaQueueRunner
+  selector: scripts.selectors.example_selector
+...
