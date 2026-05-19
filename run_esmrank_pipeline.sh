@@ -65,3 +65,6 @@ python3 scripts/merge_features.py
 
 echo 'make predictions'
 python3 scripts/predict.py
+
+echo 'building profile'
+python3 scripts/scores2profile.py "$@"

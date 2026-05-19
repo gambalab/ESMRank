@@ -10,6 +10,7 @@
 #   - Intra-task result cache: skips forward passes for already-computed sequences
 #   - Work items sorted: wt-like items first so cache is warm for mu items
 #   - Checkpoint/resume via shelve
+# poi aggiungi temporaneamente in cima a esm_features.py:
 
 import gc
 import os

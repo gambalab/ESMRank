@@ -171,7 +171,7 @@ def compute_binned_distannce(cmap1, cmap2):
 
 
 def load_pfam():
-    with pyhmmer.plan7.HMMFile('lib/Pfam-A.hmm') as hmm_file:
+    with pyhmmer.plan7.HMMFile('model/Pfam-A.hmm') as hmm_file:
         hmms = list(hmm_file)
     return hmms
 
