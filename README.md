@@ -17,7 +17,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/j3rk0/ESMRank.git
+   git clone https://github.com/gambalab/ESMRank
    ```
 
 2. **Move into the repository directory**
