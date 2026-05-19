@@ -150,6 +150,7 @@ run_esmrank_pipeline.sh --input protein.fasta -alanines
 | `-csv` | Enable CSV input mode (default: FASTA mode) |
 | `-sub` | Generate all possible missense substitutions |
 | `-indel` | Generate all possible insertions and deletions |
+| `-alanines` | Generate alanine substitutions for each position |
 
 ---
 
