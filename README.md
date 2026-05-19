@@ -42,19 +42,19 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 
 6. **Download pretrained models**
    
-   Download `ESMRank.tar.gz` from:
+   Download `ESMRank_models.tar.gz` from:
 
    ```
-   [INSERT DOWNLOAD LINK HERE]
+   https://zenodo.org/records/18773439
    ```
 
    Then extract it in the repository root:
    ```bash
-   tar -xvf ESMRank.tar.gz
+   tar -xvf ESMRank_models.tar.gz
    ```
 7. move the ```models``` directory into the repository root:
    ```bash
-   mv ESMRank/models ./
+   mv ESMRank/model ./
    ```
    
    
@@ -66,7 +66,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 The main pipeline can be executed via:
 
 ```bash
-run_esmrank_pipeline.sh [-h] --input INPUT [-csv] [-sub] [-indel]
+run_esmrank_pipeline.sh [-h] --input INPUT [-csv] [-sub] [-indel] [-alanines]
 ```
 
 ---
@@ -108,6 +108,7 @@ The pipeline will automatically generate variants based on the selected mutation
 
 - `-sub` : generate all possible **missense substitutions**
 - `-indel` : generate all possible **insertions and deletions**
+- `-alanines`: mutually exclusive to sub and indel, generate only alanines substitutions for each aminoacid
 
 Example FASTA:
 ```fasta
@@ -116,14 +117,26 @@ MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQ...
 ```
 
 Example execution:
+
+generating all missenses variants:
+
 ```bash
 run_esmrank_pipeline.sh --input protein.fasta -sub
 ```
+generating all single single indel
 
-or
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -indel
+```
+generating all missenses and single indel
 
 ```bash
 run_esmrank_pipeline.sh --input protein.fasta -sub -indel
+```
+generate alanine scanning ( alanines substitution only ) 
+
+```bash
+run_esmrank_pipeline.sh --input protein.fasta -alanines
 ```
 
 ---
@@ -137,6 +150,7 @@ run_esmrank_pipeline.sh --input protein.fasta -sub -indel
 | `-csv` | Enable CSV input mode (default: FASTA mode) |
 | `-sub` | Generate all possible missense substitutions |
 | `-indel` | Generate all possible insertions and deletions |
+| `-alanines` | Generate alanine substitutions for each position |
 
 ---
 
