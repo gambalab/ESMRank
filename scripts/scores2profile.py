@@ -26,7 +26,7 @@ data = pd.read_csv(in_file)
 position_scores = None
 data['pos'] = data['ids'].map(lambda x: int(re.findall(r'\d+', x)[0]))
 if mode == 'sub':
-    position_scores = data.groupby('pos').prediction.median()
+    position_scores = data.groupby('pos').prediction.mean()
     position_scores = pd.DataFrame(position_scores).reset_index()
 elif mode == 'alanines':
         position_scores = data[['pos','prediction']].copy()
