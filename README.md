@@ -46,7 +46,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 
 6. **Download pretrained models**
    
-   Download `ESMRank.tar.gz` from:
+   Download `ESMRank_models.tar.gz` from:
 
    ```
    https://zenodo.org/records/18773439
@@ -54,11 +54,11 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 
    Then extract it in the repository root:
    ```bash
-   tar -xvf ESMRank.tar.gz
+   tar -xvf ESMRank_models.tar.gz
    ```
 7. move the ```models``` directory into the repository root:
    ```bash
-   mv ESMRank/models ./
+   mv ESMRank/model ./
    ```
    
    
