@@ -4,10 +4,6 @@
 ESMRank is a pipeline for ranking protein variants according to their predicted functional impact.  
 The method frames variant effect prediction as a **learning-to-rank problem**, leveraging protein language models and sequence-derived features to prioritize mutations based on fitness, activity, or stability.
 
-
-# TODO:
-* add AverageProfile mode
-* add profile TSV export
 ---
 
 ## Installation
