@@ -1,17 +1,3 @@
-# esm_features_multigpu_v3.py
-# Produces results identical to esm_features_gpu1.py with wmax=400.
-# Performance optimizations (all result-preserving):
-#   - Multi-GPU work queue dispatch
-#   - Deduplication of identical sequences (wt shared across variants)
-#   - Unified work items: score + features in one worker task
-#   - GPU/CPU pipelining: contact vector computed on CPU while GPU does next forward pass
-#   - torch.diagonal() in contact vector (~35% faster, bitwise identical)
-#   - Tokenization cache within worker tasks (avoids re-tokenizing same sequences)
-#   - Intra-task result cache: skips forward passes for already-computed sequences
-#   - Work items sorted: wt-like items first so cache is warm for mu items
-#   - Checkpoint/resume via shelve
-# poi aggiungi temporaneamente in cima a esm_features.py:
-
 import gc
 import os
 import queue
@@ -27,12 +13,6 @@ from torch.nn.functional import cross_entropy
 from tqdm import tqdm
 from transformers import AutoTokenizer, EsmForMaskedLM
 
-# ---------------------------------------------------------------------------
-# Contact vector — bitwise identical to original gpu1.py (verified via benchmark)
-# Uses torch.diagonal() to extract each diagonal as a 1D view, then
-# iterates with Python sum() — same bfloat16->float64 conversion path as
-# cmap[i, i+k], ~35% faster due to 1D vs 2D index arithmetic.
-# ---------------------------------------------------------------------------
 
 def get_contact_vector(cmap):
     cmap = cmap.cpu()
