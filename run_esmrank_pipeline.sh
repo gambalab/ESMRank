@@ -3,7 +3,7 @@
 #SBATCH -J ESMRank
 #SBATCH --ntasks-per-node=1 # 4 tasks out of 32
 #SBATCH --gres=gpu:1        # 4 gpus per node out of 4
-
+cd "$(dirname "$0")"
 echo ""
 echo "   _____ ________  _________            _ "
 echo "  |  ___/  ___|  \/  || ___ \          | | "
