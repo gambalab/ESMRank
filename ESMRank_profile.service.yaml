@@ -41,8 +41,10 @@ parameters:
 
 
 command:
-- bash
-- ${SLIVKA_HOME}/ESMRank/run_esmrank_pipeline.sh
+  - bash
+  - -lc
+  - cd ${SLIVKA_HOME}/ESMRank && bash run_esmrank_pipeline.sh "$@"
+  - --
 
 args:
   input:
@@ -56,15 +58,12 @@ outputs:
   sequence-profile:
     path: output/*/profile.tsv
     media-type: text/tsv
-    description: tolerance scores for each position
   scores:
     path: output/*/predictions.csv
     media-type: text/csv
-    description: score for each mutation
   profile-plot:
     path: output/*/profile.png
     media-type: image/png
-    description: position tolerance plot
 
 execution:
   runners:
