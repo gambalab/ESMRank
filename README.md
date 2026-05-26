@@ -52,7 +52,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
    ```bash
    tar -xvf ESMRank_models.tar.gz
    ```
-7. move the ```models``` directory into the repository root:
+7. move the ```model``` directory into the repository root:
    ```bash
    mv ESMRank/model ./
    ```
