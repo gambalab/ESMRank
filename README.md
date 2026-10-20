@@ -18,7 +18,7 @@ The method frames variant effect prediction as a **learning-to-rank problem**, l
 Install a `torch` build that matches your CUDA setup first (see https://pytorch.org), then:
 
 ```bash
-pip install git+https://github.com/gambalab/ESMRank.git
+pip install esmrank
 ```
 
 This provides the `esmrank` command (and `python -m esmrank`).
