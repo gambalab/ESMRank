@@ -8,7 +8,7 @@ Typical use from code::
     df = esmrank.rank_variants("protein.fasta", sub=True)
 """
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 # Public API, imported lazily so that `import esmrank` stays cheap (torch,
 # xgboost, pyhmmer, ... are only loaded when a pipeline step actually runs).
