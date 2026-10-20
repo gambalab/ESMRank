@@ -115,11 +115,13 @@ Results are written to `<outdir>/<input file name>/` (default `output/<name>/`):
 
 ESMRank supports **two input modes**: CSV mode and FASTA mode.
 
+From the command line the input is always a file. From Python the input can also be given in memory: a **pandas DataFrame** instead of the CSV file, and a **protein sequence string** instead of the FASTA file (see [From Python](#from-python) for all the details).
+
 ---
 
 ### CSV mode
 
-In CSV mode, the input file must be a CSV containing **three mandatory columns**:
+In CSV mode, the input must be a CSV file (or, from Python, a pandas DataFrame) containing **three mandatory columns**:
 
 | Column name | Description |
 |------------|-------------|
@@ -138,11 +140,20 @@ To run in CSV mode:
 esmrank run --input variants.csv -csv
 ```
 
+From Python you can pass a DataFrame directly, without writing a CSV (extra columns are kept):
+```python
+import pandas as pd
+import esmrank
+
+variants = pd.read_csv("variants.csv")      # or any DataFrame with the three columns above
+df = esmrank.rank_variants(variants)        # DataFrame with columns `ids` and `prediction`
+```
+
 ---
 
 ### FASTA mode
 
-In FASTA mode, the input must be a **single wild-type protein sequence** in FASTA format.
+In FASTA mode, the input must be a **single wild-type protein sequence** in FASTA format (or, from Python, the sequence itself as a string).
 
 The pipeline will automatically generate variants based on the selected mutation types:
 
@@ -179,6 +190,15 @@ generate alanine scanning ( alanines substitution only )
 esmrank run --input protein.fasta -alanines
 ```
 
+From Python you can pass the sequence as a string instead of a FASTA file; the same `sub`, `indel` and `alanines` options apply:
+```python
+import esmrank
+
+seq = "MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQKDWQPEVKLDLDTASSQLADDVYEVVLRVTVTASLG"
+df = esmrank.rank_variants(seq, sub=True)                  # all missense variants
+df = esmrank.rank_variants(sequence=seq, alanines=True)    # alanine scanning
+```
+
 ---
 
 ## Command-line arguments
@@ -197,6 +217,8 @@ esmrank run --input protein.fasta -alanines
 | `--gpus` | Comma-separated CUDA device ids (default: all) |
 | `--batch-size` | Worker batch size for the ESM step (default: 128) |
 | `--esm-model` | ESM-2 checkpoint name (default: `esm2_t33_650M_UR50D`) |
+
+The command line only accepts files. Sequence strings and DataFrames are available from Python, see [From Python](#from-python).
 
 The environment variables `ESM_GPU_IDS`, `ESM_WORKER_BATCH_SIZE`, `ESM_MODEL_NAME` and `ESM_CHECKPOINT_DIR` are still honoured.
 
